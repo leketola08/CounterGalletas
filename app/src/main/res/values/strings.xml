@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">CounterApp</string>
-    <string name="counter">counter</string>
-    <string name="button">Button</string>
+    <string name="app_name">Galletitas</string>
     <string name="reset">Reset</string>
+    <string name="restar">Odio las galletas</string>
+    <string name="sumar">Me encantan las galletas</string>
+    <string name="contador_de_galletas">Contador de Galletas</string>
 </resources>

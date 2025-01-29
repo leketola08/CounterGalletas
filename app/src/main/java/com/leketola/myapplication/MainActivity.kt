@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
     private var count = 0
+    lateinit var textView: TextView
 
     @SuppressLint("SetTextI18n", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,14 +34,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         val mainLayout = findViewById<ConstraintLayout>(R.id.main)
-        val textView = findViewById<TextView>(R.id.textView)
+        textView = findViewById(R.id.textView)
         val button = findViewById<Button>(R.id.button)
+        val buttonRestar = findViewById<Button>(R.id.buttonRestar)
         val reset = findViewById<Button>(R.id.buttonReset)
         val imageView = findViewById<ImageView>(R.id.imageView)
 
         button.setOnClickListener {
             count++
-            textView.text = "Clicked $count times"
+            updateText()
             val newImageView = ImageView(this).apply {
                 id = View.generateViewId()
                 layoutParams = ConstraintLayout.LayoutParams(150, 150)
@@ -128,9 +130,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        buttonRestar.setOnClickListener {
+            if (count > 0)
+                count--
+            updateText()
+        }
         reset.setOnClickListener {
             count = 0
-            textView.text = "Reset"
+            textView.text = "Reseteado"
 
             for (i in mainLayout.childCount - 1 downTo 0) {
                 val view = mainLayout.getChildAt(i)
@@ -139,5 +146,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun updateText() {
+        textView.text = "Galletas contadas: $count"
     }
 }
