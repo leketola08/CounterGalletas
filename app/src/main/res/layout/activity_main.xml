@@ -26,29 +26,31 @@
         android:id="@+id/button"
         android:layout_width="147dp"
         android:layout_height="93dp"
+        android:layout_margin="16sp"
+        android:layout_marginBottom="16sp"
+        android:backgroundTint="#6A9933"
         android:text="@string/sumar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.611"
-        android:layout_margin="16sp"
-        android:layout_marginBottom="16sp" />
+        app:layout_constraintVertical_bias="0.611" />
 
     <Button
         android:id="@+id/buttonReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16sp"
+        android:layout_marginBottom="16sp"
+        android:backgroundTint="#EDCA5C3B"
         android:text="@string/reset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09"
-        android:layout_margin="16sp"
-        android:layout_marginBottom="16sp" />
+        app:layout_constraintVertical_bias="0.09" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -67,15 +69,16 @@
         android:id="@+id/buttonRestar"
         android:layout_width="147dp"
         android:layout_height="93dp"
+        android:layout_margin="16sp"
+        android:layout_marginBottom="16sp"
+        android:backgroundTint="#7B1111"
         android:text="@string/restar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.611"
-        android:layout_margin="16sp"
-        android:layout_marginBottom="16sp" />
+        app:layout_constraintVertical_bias="0.611" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

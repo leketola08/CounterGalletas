@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.graphics.Path
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
@@ -13,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.ViewCompat
@@ -20,20 +22,24 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
     private var count = 0
-    lateinit var textView: TextView
+    private lateinit var textView: TextView
+    private lateinit var mainLayout: ConstraintLayout
+    private val tagLocation = "MainActvity"
 
     @SuppressLint("SetTextI18n", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        Log.d(tagLocation, "Método on create()")
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val mainLayout = findViewById<ConstraintLayout>(R.id.main)
+        mainLayout = findViewById<ConstraintLayout>(R.id.main)
         textView = findViewById(R.id.textView)
         val button = findViewById<Button>(R.id.button)
         val buttonRestar = findViewById<Button>(R.id.buttonRestar)
@@ -151,5 +157,39 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     fun updateText() {
         textView.text = "Galletas contadas: $count"
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(tagLocation, "Método onStart()")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(tagLocation, "Método onResume()")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(tagLocation, "Método onRestart()")
+        count = 0
+        textView.text = "Reseteado"
+
+        for (i in mainLayout.childCount - 1 downTo 0) {
+            val view = mainLayout.getChildAt(i)
+            if (view is ImageView && view.id != R.id.textView && view.id != R.id.button && view.id != R.id.buttonReset) {
+                mainLayout.removeView(view)
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(tagLocation, "Método onStop()")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(tagLocation, "Método onDestroy()")
     }
 }
