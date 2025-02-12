@@ -3,6 +3,7 @@ package com.leketola.myapplication
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Path
 import android.os.Bundle
 import android.util.Log
@@ -39,12 +40,17 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        if (savedInstanceState != null) {
+            count = savedInstanceState.getInt("valor", count)
+        }
+
         mainLayout = findViewById<ConstraintLayout>(R.id.main)
         textView = findViewById(R.id.textView)
         val button = findViewById<Button>(R.id.button)
         val buttonRestar = findViewById<Button>(R.id.buttonRestar)
         val reset = findViewById<Button>(R.id.buttonReset)
         val imageView = findViewById<ImageView>(R.id.imageView)
+        val buttonOpen = findViewById<Button>(R.id.buttonOpen)
 
         button.setOnClickListener {
             count++
@@ -112,7 +118,7 @@ class MainActivity : AppCompatActivity() {
 
                 val fallControlX =
                     screenWidth / 2 + randomDirection * (100 + Math.random() * 200).toFloat()
-                val fallControlY = screenHeight * 0.6f
+                val fallControlY = screenHeight * 0.8f
                 val fallEndX =
                     screenWidth / 2 + randomDirection * (150 + Math.random() * 300).toFloat()
                 val fallEndY = screenHeight + newImageView.height
@@ -152,6 +158,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        buttonOpen.setOnClickListener {
+            val intent = Intent(this, ContadorActivity::class.java)
+            intent.putExtra("counterValue", count)
+            startActivity(intent)
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -172,15 +184,6 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         Log.d(tagLocation, "Método onRestart()")
-        count = 0
-        textView.text = "Reseteado"
-
-        for (i in mainLayout.childCount - 1 downTo 0) {
-            val view = mainLayout.getChildAt(i)
-            if (view is ImageView && view.id != R.id.textView && view.id != R.id.button && view.id != R.id.buttonReset) {
-                mainLayout.removeView(view)
-            }
-        }
     }
 
     override fun onStop() {
@@ -191,5 +194,16 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(tagLocation, "Método onDestroy()")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("valor", count)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        count = savedInstanceState.getInt("valor", count)
+        updateText()
     }
 }
